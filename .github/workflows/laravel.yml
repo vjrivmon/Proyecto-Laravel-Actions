@@ -26,3 +26,15 @@ jobs:
 
             - name: Install Packages
               run: composer install --no-interaction
+
+            - name: Verify Vendor Folder
+              run: if [ ! -d "vendor" ]; then echo "Vendor folder not found!"; exit 1; fi
+
+            - name: Set App
+              run: cp .env.example .env
+            
+            - name: Set Key
+              run: php artisan key:generate
+
+            - name: Run Test
+              run: vendor/bin/phpunit
